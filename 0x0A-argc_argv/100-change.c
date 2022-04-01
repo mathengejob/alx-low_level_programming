@@ -1,65 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 
 /**
- * calculate_cents - calculates and return cents
- * @num: input params
- * Return: coins
+ * main - prints the minimum number of coins
+ * to make change for an amount of money
+ * @argc: n args
+ * @argv: arr args
+ * Return: 0
  */
-
-int calculate_cents(int num)
-{
-	int coins = 0;
-
-	while (num)
-	{
-		if (num >= 25)
-		{
-			num -= 25;
-		}
-		else if (num >= 10)
-		{
-			num -= 10;
-		}
-		else if (num >= 5)
-		{
-			num -= 5;
-		}
-		else if (num >= 2)
-		{
-			num -= 2;
-		}
-		else if (num >= 1)
-		{
-			num -= 1;
-		}
-		coins++;
-	}
-	return (coins);
-}
-
-/**
- * main - prints the minimum number of
- * coins to make change for an amount of money
- * @argc: amount of arguement
- * @argv: an array of inputs from argc
- *
- * Return: 0 for success
- */
-
 int main(int argc, char *argv[])
 {
-	int number;
+	int value, c;
 
+	c = 0;
 	if (argc != 2)
 	{
-		return (printf("Error\n"), 1);
+		printf("Error\n");
+		return (1);
 	}
-	number = atoi(argv[1]);
-	if (number < 0)
+	value = atoi(argv[1]);
+	if (value < 0)
 	{
-		return (printf("Error\n"), 1);
+		printf("%d\n", 0);
+		return (0);
 	}
-	printf("%d\n", calculate_cents(number));
+	if (value % 25 >= 0)
+	{
+		c += value / 25;
+		value = value % 25;
+	}
+	if (value % 10 >= 0)
+	{
+		c += value / 10;
+		value = value % 10;
+	}
+	if (value % 5 >= 0)
+	{
+		c += value / 5;
+		value = value % 5;
+	}
+	if (value % 2 >= 0)
+	{
+		c += value / 2;
+		value = value % 2;
+	}
+	if (value % 1 >= 0)
+	{
+		c += value / 1;
+	}
+	printf("%d\n", c);
 	return (0);
 }
